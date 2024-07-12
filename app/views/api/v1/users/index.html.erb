@@ -1,0 +1,56 @@
+<style>
+ .form-group {
+    margin-bottom: 5px;
+  }
+
+ .campaign {
+    margin-bottom: 10px;
+  }
+
+ .campaign hr {
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+  }
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .mb-3 {
+    margin-bottom: 1rem;
+  }
+</style>
+
+<!-- Add new user form -->
+<h2>Add New User</h2>
+<%= form_for :user, url: { controller: 'users', action: 'create' } do |form| %>
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control", required: true%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :campaigns_list %>
+    <%= form.fields_for :campaigns_list do |campaign_form| %>
+       <div class="campaign">
+        <%= campaign_form.label :campaign_name, class: "mb-2" %>
+        <%= campaign_form.text_field :campaign_name, class: "form-control mb-3", required: true %>
+        <%= campaign_form.label :campaign_id, class: "mb-2" %>
+        <%= campaign_form.text_field :campaign_id, class: "form-control mb-3", required: true %>
+        <hr>
+      </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Create User", class: "btn btn-primary" %>
+  </div>
+
+    <p>Once created, you can check the record by adding .json in URL after /user.json or go to this<a href="http://localhost:3000/api/v1/users.json">http://localhost:3000/api/v1/users.json</a></p>
+
+<% end %>
